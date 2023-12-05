@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">InterviewIN</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="interview">Interview</string>
+    <string name="in">In</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="login_greeting2">Hello again, you\'ve been missed</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or_login_with">Or Login With</string>
+    <string name="dont_have_account">Don’t have an account?</string>
+    <string name="register_now">Register Now</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="or_register_with">Or Register With</string>
+    <string name="login_now">Login Now</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="hello">Hello!</string>
+    <string name="register_to_get_started">Register to get started</string>
+</resources>
