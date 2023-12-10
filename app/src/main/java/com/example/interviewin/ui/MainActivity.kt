@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.interviewin.R
 import com.example.interviewin.databinding.ActivityMainBinding
 import com.example.interviewin.ui.login.LoginActivity
+import com.example.interviewin.ui.register.RegisterActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.startBtnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.startBtnRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
