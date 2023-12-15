@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#023047</color>
+    <color name="navigation_active">#35596C</color>
     <color name="ed_background">#F7F8F9</color>
     <color name="grey">#6A707C</color>
     <color name="medium_grey">#8391A1</color>

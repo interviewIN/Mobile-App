@@ -1,15 +1,12 @@
-package com.example.interviewin.ui.roles
+package com.example.interviewin.ui.auth.forgotpassword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.interviewin.R
 
-class RolesActivity : AppCompatActivity() {
+class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_roles)
-
-
+        setContentView(R.layout.activity_forgot_password)
     }
 }

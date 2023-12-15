@@ -6,6 +6,7 @@ import com.example.interviewin.data.api.response.LoginResponse
 import com.example.interviewin.data.api.response.RegisterResponse
 import com.example.interviewin.data.model.LoginRequest
 import com.example.interviewin.data.model.RegisterRequest
+import com.example.interviewin.data.model.UserModel
 import com.example.interviewin.data.preference.UserPreference
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -15,10 +16,9 @@ class DataRepository(
     private val userPreference: UserPreference,
     private val apiService: ApiService
 ) {
-    fun register(username: String, password: String, role: String?) = liveData {
+    fun register(request: RegisterRequest) = liveData {
         emit(ResultState.Loading)
         try {
-            val request = RegisterRequest(username, password, role)
             val successResponse = apiService.register(request)
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
@@ -41,11 +41,11 @@ class DataRepository(
         }
     }
 
-    suspend fun saveSession(token: String) {
-        userPreference.saveSession(token)
+    suspend fun saveSession(user: UserModel) {
+        userPreference.saveSession(user)
     }
 
-    fun getSession(): Flow<String> {
+    fun getSession(): Flow<UserModel> {
         return userPreference.getSession()
     }
 

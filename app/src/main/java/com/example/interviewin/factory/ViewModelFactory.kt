@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.interviewin.data.DataRepository
 import com.example.interviewin.di.Injection
-import com.example.interviewin.ui.login.LoginViewModel
-import com.example.interviewin.ui.register.RegisterViewModel
+import com.example.interviewin.ui.MainViewModel
+import com.example.interviewin.ui.auth.login.LoginViewModel
+import com.example.interviewin.ui.auth.register.RegisterViewModel
+import com.example.interviewin.ui.candidate.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: DataRepository): ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -18,6 +20,14 @@ class ViewModelFactory(private val repository: DataRepository): ViewModelProvide
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel Class " + modelClass.name)

@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.interviewin.data.api.response.LoginResponse
+import com.example.interviewin.data.model.UserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,15 +14,21 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class UserPreference private constructor(
     private val dataStore: DataStore<Preferences>
 ){
-    suspend fun saveSession(token: String) {
+    suspend fun saveSession(user: UserModel) {
         dataStore.edit {
-            it[TOKEN_KEY] = token
+            it[USERNAME_KEY] = user.username
+            it[ROLE_KEY] = user.role
+            it[TOKEN_KEY] = user.token
         }
     }
 
-    fun getSession(): Flow<String> {
+    fun getSession(): Flow<UserModel> {
         return dataStore.data.map {
-             it[TOKEN_KEY] ?: ""
+             UserModel(
+                 it[USERNAME_KEY] ?: "",
+                 it[ROLE_KEY] ?: "",
+                 it[TOKEN_KEY] ?: "",
+             )
         }
     }
 
@@ -34,6 +39,8 @@ class UserPreference private constructor(
     }
 
     companion object {
+        private val USERNAME_KEY = stringPreferencesKey("username")
+        private val ROLE_KEY = stringPreferencesKey("role")
         private val TOKEN_KEY = stringPreferencesKey("token")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference{

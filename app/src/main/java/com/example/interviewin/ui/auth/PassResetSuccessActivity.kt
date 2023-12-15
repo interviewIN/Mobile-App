@@ -1,4 +1,4 @@
-package com.example.interviewin.ui
+package com.example.interviewin.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

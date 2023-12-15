@@ -6,6 +6,9 @@ data class LoginResponse(
     @field:SerializedName("token")
     val token: String,
 
+    @field:SerializedName("role")
+    val role: String,
+
     @field:SerializedName("message")
     val message: String
 )

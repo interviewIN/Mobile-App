@@ -1,19 +1,20 @@
-package com.example.interviewin.ui.login
+package com.example.interviewin.ui.auth.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.interviewin.R
 import com.example.interviewin.data.ResultState
+import com.example.interviewin.data.model.UserModel
 import com.example.interviewin.databinding.ActivityLoginBinding
 import com.example.interviewin.factory.ViewModelFactory
 import com.example.interviewin.ui.MainActivity
-import com.example.interviewin.ui.register.RegisterActivity
-import com.example.interviewin.ui.roles.RolesActivity
+import com.example.interviewin.ui.auth.register.RegisterActivity
+import com.example.interviewin.ui.auth.roles.RolesActivity
+import com.example.interviewin.ui.candidate.CandidateActivity
+import com.example.interviewin.utils.CANDIDATE
 
 class LoginActivity : AppCompatActivity() {
 
@@ -61,12 +62,11 @@ class LoginActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         showLoading(false)
                         showToast("Login Successful!")
-                        loginViewModel.saveSession(result.data.token)
-                        Log.d("check token", result.data.token)
-                        val intent = Intent(this@LoginActivity, RolesActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        startActivity(intent)
-                        finish()
+                        val token = result.data.token
+                        val role = result.data.role
+                        val userModel = UserModel(username, role, token)
+                        loginViewModel.saveSession(userModel)
+                        successIntent(role)
                     }
                     is ResultState.Error -> {
                         showLoading(false)
@@ -81,6 +81,20 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun successIntent(role: String) {
+        if (role == CANDIDATE) {
+            val intent = Intent(this@LoginActivity, CandidateActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this@LoginActivity, RolesActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

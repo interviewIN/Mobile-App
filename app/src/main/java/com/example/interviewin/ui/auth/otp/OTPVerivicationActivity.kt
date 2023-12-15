@@ -1,4 +1,4 @@
-package com.example.interviewin.ui.otp
+package com.example.interviewin.ui.auth.otp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

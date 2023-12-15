@@ -1,19 +1,19 @@
-package com.example.interviewin.ui.register
+package com.example.interviewin.ui.auth.register
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.interviewin.R
 import com.example.interviewin.data.ResultState
+import com.example.interviewin.data.model.RegisterRequest
 import com.example.interviewin.databinding.ActivityRegisterBinding
 import com.example.interviewin.factory.ViewModelFactory
 import com.example.interviewin.ui.MainActivity
-import com.example.interviewin.ui.login.LoginActivity
+import com.example.interviewin.ui.auth.login.LoginActivity
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -56,15 +56,16 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register() {
         val edUsername = binding.registerEdUsername
+        val edEmail = binding.registerEdEmail
         val edRole = binding.registerEdRole
         val edPassword = binding.registerEdPassword
         val edConfirmPassword = binding.registerEdConfirmPassword
 
         val username = edUsername.text.toString().trim()
+        val email = edEmail.text.toString().trim()
         var role = edRole.text.toString().uppercase().trim()
         val password = edPassword.text.toString().trim()
         val confirmPassword = edConfirmPassword.text.toString().trim()
-
 
         if (role == PLACEHOLDER) {
             role = "CANDIDATE"
@@ -74,6 +75,12 @@ class RegisterActivity : AppCompatActivity() {
             edUsername.error = resources.getString(R.string.username_error)
         } else {
             edUsername.error = null
+        }
+
+        if (email.isEmpty()) {
+            edEmail.error = resources.getString(R.string.email_error)
+        } else {
+            edEmail.error = null
         }
 
         if (password.length < 8) {
@@ -86,8 +93,9 @@ class RegisterActivity : AppCompatActivity() {
             showToast("Password and Confirm Password do not match.")
         }
 
-        if (password == confirmPassword && edPassword.error == null && edUsername.error == null) {
-            registerViewModel.register(username, password, role).observe(this) { result ->
+        if (password == confirmPassword && edEmail.error == null && edPassword.error == null && edUsername.error == null) {
+            val request = RegisterRequest(username, email, password, role)
+            registerViewModel.register(request).observe(this) { result ->
                 if (result != null) {
                     when (result) {
                         is ResultState.Loading -> {

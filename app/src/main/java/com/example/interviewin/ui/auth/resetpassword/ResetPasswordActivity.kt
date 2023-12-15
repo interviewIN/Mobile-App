@@ -1,4 +1,4 @@
-package com.example.interviewin.ui.resetpassword
+package com.example.interviewin.ui.auth.resetpassword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

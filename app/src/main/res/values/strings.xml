@@ -41,10 +41,17 @@
     <string name="recruiter">Recruiter</string>
     <string name="select_role">Role</string>
     <string name="username_error">Username cannot be empty</string>
+    <string name="email_error">Email cannot be empty</string>
     <string name="password_error">Password must be at least 8 characters long</string>
 
     <string-array name="roles">
         <item>Candidate</item>
         <item>Company</item>
     </string-array>
+    <string name="title_activity_candidate">CandidateActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_interview">Interview</string>
+    <string name="title_profile">Profile</string>
 </resources>
