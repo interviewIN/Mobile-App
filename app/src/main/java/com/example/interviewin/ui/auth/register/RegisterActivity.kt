@@ -37,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             tvHaveAccount.setOnClickListener {
-               loginIntent()
+                loginIntent()
             }
 
             tvLoginNow.setOnClickListener {
@@ -56,12 +56,14 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register() {
         val edUsername = binding.registerEdUsername
+        val edName = binding.registerEdName
         val edEmail = binding.registerEdEmail
         val edRole = binding.registerEdRole
         val edPassword = binding.registerEdPassword
         val edConfirmPassword = binding.registerEdConfirmPassword
 
         val username = edUsername.text.toString().trim()
+        val name = edName.text.toString().trim()
         val email = edEmail.text.toString().trim()
         var role = edRole.text.toString().uppercase().trim()
         val password = edPassword.text.toString().trim()
@@ -93,19 +95,21 @@ class RegisterActivity : AppCompatActivity() {
             showToast("Password and Confirm Password do not match.")
         }
 
-        if (password == confirmPassword && edEmail.error == null && edPassword.error == null && edUsername.error == null) {
-            val request = RegisterRequest(username, email, password, role)
+        if (password == confirmPassword && edEmail.error == null && edPassword.error == null && edUsername.error == null && edName.error == null) {
+            val request = RegisterRequest(username, name, email, password, role)
             registerViewModel.register(request).observe(this) { result ->
                 if (result != null) {
                     when (result) {
                         is ResultState.Loading -> {
                             showLoading(true)
                         }
+
                         is ResultState.Success -> {
                             showLoading(false)
                             showToast("Registration Successful!")
                             loginIntent()
                         }
+
                         is ResultState.Error -> {
                             showLoading(false)
                             showToast(result.error)
