@@ -15,6 +15,7 @@ import com.example.interviewin.ui.auth.register.RegisterActivity
 import com.example.interviewin.ui.auth.roles.RolesActivity
 import com.example.interviewin.ui.candidate.CandidateActivity
 import com.example.interviewin.utils.CANDIDATE
+import com.example.interviewin.utils.Token.decodeToken
 
 class LoginActivity : AppCompatActivity() {
 
@@ -63,8 +64,10 @@ class LoginActivity : AppCompatActivity() {
                         showLoading(false)
                         showToast("Login Successful!")
                         val token = result.data.token
+                        val decode = decodeToken(token)
+                        val id = decode?.id!!
                         val role = result.data.role
-                        val userModel = UserModel(username, role, token)
+                        val userModel = UserModel(id, username, role, token)
                         loginViewModel.saveSession(userModel)
                         successIntent(role)
                     }

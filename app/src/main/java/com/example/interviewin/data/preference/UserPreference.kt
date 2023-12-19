@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.interviewin.data.model.UserModel
@@ -16,6 +17,7 @@ class UserPreference private constructor(
 ){
     suspend fun saveSession(user: UserModel) {
         dataStore.edit {
+            it[ID_KEY] = user.id
             it[USERNAME_KEY] = user.username
             it[ROLE_KEY] = user.role
             it[TOKEN_KEY] = user.token
@@ -25,6 +27,7 @@ class UserPreference private constructor(
     fun getSession(): Flow<UserModel> {
         return dataStore.data.map {
              UserModel(
+                 it[ID_KEY] ?: 0,
                  it[USERNAME_KEY] ?: "",
                  it[ROLE_KEY] ?: "",
                  it[TOKEN_KEY] ?: "",
@@ -39,6 +42,7 @@ class UserPreference private constructor(
     }
 
     companion object {
+        private val ID_KEY = intPreferencesKey("id")
         private val USERNAME_KEY = stringPreferencesKey("username")
         private val ROLE_KEY = stringPreferencesKey("role")
         private val TOKEN_KEY = stringPreferencesKey("token")
