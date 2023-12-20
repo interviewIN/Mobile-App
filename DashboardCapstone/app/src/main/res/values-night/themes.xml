@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.BottomSheetDialogExapmle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
+    <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+
+<!--    <style name="DialogAnimation">-->
+<!--        <item name="android:windowEnterAnimation">@anim/sheet_in</item>-->
+<!--        <item name="android:windowExitAnimation">@anim/sheet_out</item>-->
+<!--    </style>-->
+
+</resources>

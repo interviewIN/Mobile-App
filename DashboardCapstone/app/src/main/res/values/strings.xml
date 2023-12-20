@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Interview IN</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="candidates">Candidate</string>
+    <string name="recruiter">Recruiter</string>
+    <string name="candidatepage">Ini page Candidate</string>
+    <string name="recruiterpage">Ini page Recruiter</string>
+    <string name="judul">What’s your positions?</string>
+    <string name="InterviewIN">InterviewIN</string>
+    <string name="allIN">All Interviews</string>
+    <string name="nodata">You havent done any interviews yet</string>
+    <string name="search">The position you apply for</string>
+    <string name="Jobdesc">Job Description</string>
+    <string name="Jobreq">Job Requiremets</string>
+</resources>
