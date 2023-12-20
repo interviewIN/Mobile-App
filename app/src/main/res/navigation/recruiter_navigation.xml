@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recruiter_navigation"
+    app:startDestination="@id/recruiterDashboardFragment">
+
+    <fragment
+        android:id="@+id/recruiterDashboardFragment"
+        android:name="com.example.interviewin.ui.recruiter.ui.dashboard.RecruiterDashboardFragment"
+        android:label="fragment_recruiter_dashboard"
+        tools:layout="@layout/fragment_recruiter_dashboard" />
+    <fragment
+        android:id="@+id/recruiterInterviewFragment"
+        android:name="com.example.interviewin.ui.recruiter.ui.interview.RecruiterInterviewFragment"
+        android:label="fragment_recruiter_interview"
+        tools:layout="@layout/fragment_recruiter_interview" />
+    <fragment
+        android:id="@+id/recruiterProfileFragment"
+        android:name="com.example.interviewin.ui.recruiter.ui.profile.RecruiterProfileFragment"
+        android:label="fragment_recruiter_profile"
+        tools:layout="@layout/fragment_recruiter_profile" />
+</navigation>
