@@ -55,6 +55,8 @@
     <string name="title_interview">Interview</string>
     <string name="title_profile">Profile</string>
     <string name="name">Name</string>
+    <string name="write_your_answer">Write your answer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="candidates">Candidate</string>
     <string name="candidatepage">Ini page Candidate</string>
     <string name="recruiterpage">Ini page Recruiter</string>

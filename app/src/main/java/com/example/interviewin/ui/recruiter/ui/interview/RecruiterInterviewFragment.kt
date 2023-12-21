@@ -14,13 +14,9 @@ import com.example.interviewin.data.ResultState
 import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.databinding.FragmentRecruiterInterviewBinding
 import com.example.interviewin.factory.ViewModelFactory
-import com.example.interviewin.ui.auth.roles.RolesActivity
-import com.example.interviewin.ui.candidate.CandidateActivity
 import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity
 import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity.Companion.ID_JOB
 import com.example.interviewin.ui.recruiter.ui.jobdesc.JobDescFragment
-import com.example.interviewin.utils.CANDIDATE
-import com.example.interviewin.utils.COMPANY
 
 class RecruiterInterviewFragment : Fragment() {
 
@@ -77,7 +73,6 @@ class RecruiterInterviewFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun setUpRecycler(job: List<JobsItem>) {
@@ -87,7 +82,9 @@ class RecruiterInterviewFragment : Fragment() {
             },
 
             onItemClick = {
-
+                val intent = Intent(requireContext(), AppliedListActivity::class.java)
+                intent.putExtra(ID_JOB, it.id)
+                startActivity(intent)
             }
         )
 

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.InterviewIN"
         tools:targetApi="31">
         <activity
+            android:name=".ui.candidate.chat.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.recruiter.ui.appliedlist.AppliedListActivity"
             android:exported="false" />
         <activity
