@@ -6,8 +6,10 @@ import com.example.interviewin.data.api.response.ChatResponse
 import com.example.interviewin.data.api.response.LoginResponse
 import com.example.interviewin.data.api.response.MessageResponse
 import com.example.interviewin.data.api.response.RegisterResponse
+import com.example.interviewin.data.model.ApplyJobRequest
 import com.example.interviewin.data.model.JobRequest
 import com.example.interviewin.data.model.LoginRequest
+import com.example.interviewin.data.model.PatchStatusRequest
 import com.example.interviewin.data.model.RegisterRequest
 import com.example.interviewin.data.model.UserModel
 import com.example.interviewin.data.preference.UserPreference
@@ -68,10 +70,46 @@ class DataRepository(
         }
     }
 
+    fun applyJob(request: ApplyJobRequest) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResponse = apiService.applyJob(request)
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, MessageResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
     fun getInterviews() = liveData {
         emit(ResultState.Loading)
         try {
             val successResponse = apiService.getInterviews()
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, MessageResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun getInterviewsByJob(jobId: Int) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResponse = apiService.getInterviewByJob(jobId)
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, MessageResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun patchStatus(request: PatchStatusRequest) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResponse = apiService.patchStatus(request)
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()

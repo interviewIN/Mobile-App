@@ -5,19 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.interviewin.data.api.response.JobsItem
+import com.example.interviewin.data.api.response.Interviews
 import com.example.interviewin.databinding.ItemAppiledUserBinding
 
 class AppliedListAdapter(
-    private val onItemClick: (JobsItem) -> Unit,
+    private val onItemClick: (Interviews) -> Unit,
+    private val onBtnNext: (Interviews) -> Unit,
 ) :
-    ListAdapter<JobsItem, AppliedListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<Interviews, AppliedListAdapter.MyViewHolder>(DIFF_CALLBACK) {
     inner class MyViewHolder(val binding: ItemAppiledUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(job: JobsItem) {
+        fun bind(interview: Interviews) {
+            binding.tvUsername.text = interview.candidateId.toString()
+            binding.tvScore.text = interview.status
+
+            binding.btnRightArrow.setOnClickListener {
+                onBtnNext(interview)
+            }
 
             itemView.setOnClickListener {
-                onItemClick(job)
+                onItemClick(interview)
             }
         }
     }
@@ -33,12 +40,12 @@ class AppliedListAdapter(
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<JobsItem>() {
-            override fun areItemsTheSame(oldItem: JobsItem, newItem: JobsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Interviews>() {
+            override fun areItemsTheSame(oldItem: Interviews, newItem: Interviews): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: JobsItem, newItem: JobsItem): Boolean {
+            override fun areContentsTheSame(oldItem: Interviews, newItem: Interviews): Boolean {
                 return oldItem == newItem
             }
         }

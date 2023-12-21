@@ -1,17 +1,22 @@
 package com.example.interviewin.data.api
 
 import com.example.interviewin.data.api.response.ChatResponse
+import com.example.interviewin.data.api.response.GetInterviewByJobResponse
 import com.example.interviewin.data.api.response.GetJobResponse
 import com.example.interviewin.data.api.response.InterviewResponse
 import com.example.interviewin.data.api.response.LoginResponse
 import com.example.interviewin.data.api.response.MessageResponse
 import com.example.interviewin.data.api.response.NoAnswerResponse
 import com.example.interviewin.data.api.response.RegisterResponse
+import com.example.interviewin.data.api.response.UpdatedInterviewResponse
+import com.example.interviewin.data.model.ApplyJobRequest
 import com.example.interviewin.data.model.JobRequest
 import com.example.interviewin.data.model.LoginRequest
+import com.example.interviewin.data.model.PatchStatusRequest
 import com.example.interviewin.data.model.RegisterRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -31,11 +36,24 @@ interface ApiService {
         @Body request: JobRequest
     ): MessageResponse
 
+    @POST("jobs/apply")
+    suspend fun applyJob(
+        @Body request: ApplyJobRequest
+    ): MessageResponse
+
     @GET("jobs")
     suspend fun getJobs(): GetJobResponse
 
     @GET("interview")
     suspend fun getInterviews(): InterviewResponse
+
+    @GET("interview/job/jobId:")
+    suspend fun getInterviewByJob(jobId: Int): GetInterviewByJobResponse
+
+    @PATCH("interview")
+    suspend fun patchStatus(
+        @Body request: PatchStatusRequest
+    ): UpdatedInterviewResponse
 
     @POST("interview/generateQuestion")
     suspend fun generateFirstQuestion(
