@@ -8,10 +8,40 @@ data class InterviewIdResponse(
 	val interview: InterviewId
 )
 
+data class Summary(
+
+	@field:SerializedName("technicalCapability")
+	val technicalCapability: String,
+
+	@field:SerializedName("interviewId")
+	val interviewId: Int,
+
+	@field:SerializedName("personalCapability")
+	val personalCapability: String,
+
+	@field:SerializedName("psychologicalCapability")
+	val psychologicalCapability: String,
+
+	@field:SerializedName("mostRelevantPosition")
+	val mostRelevantPosition: String,
+
+	@field:SerializedName("chanceOfGettingTheJob")
+	val chanceOfGettingTheJob: String,
+
+	@field:SerializedName("id")
+	val id: Int,
+
+	@field:SerializedName("overallImpression")
+	val overallImpression: String,
+
+	@field:SerializedName("finalThoughts")
+	val finalThoughts: String
+)
+
 data class InterviewId(
 
 	@field:SerializedName("summary")
-	val summary: Any,
+	val summary: Summary,
 
 	@field:SerializedName("jobId")
 	val jobId: Int,
@@ -20,7 +50,7 @@ data class InterviewId(
 	val questions: List<String>,
 
 	@field:SerializedName("answers")
-	val answers: List<Any>,
+	val answers: List<String>,
 
 	@field:SerializedName("id")
 	val id: Int,
@@ -37,4 +67,3 @@ data class InterviewId(
 	@field:SerializedName("updatedAt")
 	val updatedAt: String
 )
-

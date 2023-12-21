@@ -52,7 +52,6 @@ interface ApiService {
     @GET("interview/job/{jobId}")
     suspend fun getInterviewByJob(@Path("jobId") jobId: Int): GetInterviewByJobResponse
 
-
     @PATCH("interview")
     suspend fun patchStatus(
         @Body request: PatchStatusRequest
@@ -66,7 +65,7 @@ interface ApiService {
     @POST("interview/generateQuestion")
     suspend fun generateQuestion(
         @Body request: ChatResponse
-    ): ChatResponse
+    ): NoAnswerResponse
 
     @GET("interview/{id}/chat")
     suspend fun getChat(

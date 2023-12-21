@@ -7,10 +7,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.interviewin.R
 import com.example.interviewin.data.ResultState
 import com.example.interviewin.data.api.response.ChatItem
 import com.example.interviewin.data.api.response.ChatResponse
+import com.example.interviewin.data.api.response.NoAnswerResponse
 import com.example.interviewin.databinding.ActivityChatBinding
 import com.example.interviewin.factory.ViewModelFactory
 
@@ -38,35 +38,8 @@ class ChatActivity : AppCompatActivity() {
         val status = intent.getStringExtra(INTERVIEW_STATUS)
         val interviewId = intent.getIntExtra(INTERVIEW_ID, 0)
 
-        when (status) {
-            "WAITING" -> {
-                generateFirstQuestion(interviewId)
-            }
-
-            "IN_PROGRESS" -> {
-                getChat(interviewId)
-            }
-
-            "PENDING" -> {
-                binding.bottomGroup.visibility = View.GONE
-                binding.answerEditTextLayout.visibility = View.GONE
-                binding.btnSend.visibility = View.GONE
-                binding.btnMic.visibility = View.GONE
-            }
-
-            "ACCEPTED" -> {
-                binding.bottomGroup.visibility = View.GONE
-                binding.answerEditTextLayout.visibility = View.GONE
-                binding.btnSend.visibility = View.GONE
-                binding.btnMic.visibility = View.GONE
-            }
-
-            "REJECTED" -> {
-                binding.bottomGroup.visibility = View.GONE
-                binding.answerEditTextLayout.visibility = View.GONE
-                binding.btnSend.visibility = View.GONE
-                binding.btnMic.visibility = View.GONE
-            }
+        if (status != null) {
+            getChat(interviewId)
         }
 
         binding.btnSend.setOnClickListener {
@@ -74,20 +47,15 @@ class ChatActivity : AppCompatActivity() {
             if (answerText.isEmpty()) {
                 showToast("Please provide an answer")
             } else {
-                if (nextRequest?.chat?.isNotEmpty() == true) {
-                    nextRequest?.chat?.last()?.answer = answerText
-                }
-
-                if (nextRequest?.chat?.size == 5) {
-                    generateLastQuestion(nextRequest!!)
-                } else {
-                    generateQuestion(nextRequest!!)
-                }
+                nextRequest?.chat?.last()?.answer = answerText
+                generateLastQuestion(nextRequest!!)
 
                 Log.d("test after answer", nextRequest.toString())
                 binding.answerEditTextLayout.text.clear()
             }
+
         }
+        Log.d("test answer", nextRequest.toString())
     }
 
     private fun generateFirstQuestion(id: Int) {
@@ -116,32 +84,6 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun generateQuestion(request: ChatResponse) {
-        chatViewModel.generateQuestion(request).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is ResultState.Loading -> {
-                        showLoading(true)
-                    }
-
-                    is ResultState.Success -> {
-                        listChat.clear()
-                        showLoading(false)
-                        if (listChat.isEmpty()) {
-                            populateListChat(result.data)
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-
-                    is ResultState.Error -> {
-                        showLoading(false)
-                        showToast(result.error)
-                    }
-                }
-            }
-        }
-    }
-
     private fun generateLastQuestion(request: ChatResponse) {
         chatViewModel.generateFirstQuestion(request).observe(this) { result ->
             if (result != null) {
@@ -152,13 +94,21 @@ class ChatActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         showLoading(false)
-                        if (listChat.isEmpty()) {
-                            addBotChat(result.data.question)
+                        addBotChat(result.data.question)
+
+                        val newChatItem = ChatItem(result.data.question, answer = "")
+                        nextRequest?.let {
+                            val updatedChatList = it.chat.toMutableList()
+                            updatedChatList.add(newChatItem)
+                            nextRequest = it.copy(chat = updatedChatList)
                         }
-                        binding.bottomGroup.visibility = View.GONE
-                        binding.answerEditTextLayout.visibility = View.GONE
-                        binding.btnSend.visibility = View.GONE
-                        binding.btnMic.visibility = View.GONE
+
+                        if (result.data.status != "IN_PROGRESS") {
+                            binding.bottomGroup.visibility = View.GONE
+                            binding.answerEditTextLayout.visibility = View.GONE
+                            binding.btnSend.visibility = View.GONE
+                            binding.btnMic.visibility = View.GONE
+                        }
                         adapter.notifyDataSetChanged()
                     }
 
@@ -180,10 +130,14 @@ class ChatActivity : AppCompatActivity() {
                     }
 
                     is ResultState.Success -> {
-                        listChat.clear()
                         showLoading(false)
-                        if (listChat.isEmpty()) {
+                        if (result.data.chat.isEmpty()) {
+                            generateFirstQuestion(interviewId)
+                        } else {
                             populateListChat(result.data)
+                            val request= ChatResponse(interviewId, result.data.chat)
+                            nextRequest = result.data
+                            generateLastQuestion(request)
                         }
                         adapter.notifyDataSetChanged()
                     }

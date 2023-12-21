@@ -33,7 +33,14 @@ class SummaryActivity : AppCompatActivity() {
 
                     is ResultState.Success -> {
                         showLoading(false)
-
+                        val summary = result.data.interview.summary
+                        binding.tvOverall.text = summary.overallImpression
+                        binding.tvChanceGet.text = summary.chanceOfGettingTheJob
+                        binding.tvMostRelevant.text = summary.mostRelevantPosition
+                        binding.tvPersonal.text = summary.personalCapability
+                        binding.tvPsychological.text = summary.psychologicalCapability
+                        binding.tvTechnical.text = summary.technicalCapability
+                        binding.tvFinal.text = summary.finalThoughts
                     }
 
                     is ResultState.Error -> {

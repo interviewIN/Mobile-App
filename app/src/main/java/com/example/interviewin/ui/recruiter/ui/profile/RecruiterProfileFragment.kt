@@ -22,6 +22,7 @@ class RecruiterProfileFragment : Fragment() {
     private val profileViewModel by viewModels<RecruiterProfileViewModel> {
         ViewModelFactory.getInstance(requireActivity())
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
