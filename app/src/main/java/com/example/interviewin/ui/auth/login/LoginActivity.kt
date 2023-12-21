@@ -14,6 +14,7 @@ import com.example.interviewin.ui.MainActivity
 import com.example.interviewin.ui.auth.register.RegisterActivity
 import com.example.interviewin.ui.auth.roles.RolesActivity
 import com.example.interviewin.ui.candidate.CandidateActivity
+import com.example.interviewin.ui.recruiter.RecruiterActivity
 import com.example.interviewin.utils.CANDIDATE
 import com.example.interviewin.utils.Token.decodeToken
 
@@ -93,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            val intent = Intent(this@LoginActivity, RolesActivity::class.java)
+            val intent = Intent(this@LoginActivity, RecruiterActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
             finish()

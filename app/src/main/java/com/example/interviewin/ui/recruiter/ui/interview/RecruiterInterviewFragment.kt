@@ -14,8 +14,10 @@ import com.example.interviewin.data.ResultState
 import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.databinding.FragmentRecruiterInterviewBinding
 import com.example.interviewin.factory.ViewModelFactory
+import com.example.interviewin.ui.recruiter.ui.addJob.AddJobActivity
 import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity
 import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity.Companion.ID_JOB
+import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity.Companion.TITLE_JOB
 import com.example.interviewin.ui.recruiter.ui.jobdesc.JobDescFragment
 
 class RecruiterInterviewFragment : Fragment() {
@@ -45,6 +47,14 @@ class RecruiterInterviewFragment : Fragment() {
             )
         )
 
+        binding.fab.setOnClickListener {
+            val intent = Intent(requireContext(), AddJobActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         displayJob()
     }
 
@@ -60,7 +70,7 @@ class RecruiterInterviewFragment : Fragment() {
                         showLoading(false)
                         interviewViewModel.getSession().observe(viewLifecycleOwner) { user ->
                             val filteredJobList = result.data.jobs.filter {
-                                it.companyId == user.id
+                                it.id == user.id
                             }
                             setUpRecycler(filteredJobList)
                         }
@@ -84,6 +94,7 @@ class RecruiterInterviewFragment : Fragment() {
             onItemClick = {
                 val intent = Intent(requireContext(), AppliedListActivity::class.java)
                 intent.putExtra(ID_JOB, it.id)
+                intent.putExtra(TITLE_JOB, it.title)
                 startActivity(intent)
             }
         )
@@ -102,7 +113,6 @@ class RecruiterInterviewFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-
     }
 
     private fun showToast(message: String) {

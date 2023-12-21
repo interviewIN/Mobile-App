@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.interviewin.R
 import com.example.interviewin.databinding.ActivityCandidateBinding
+import com.example.interviewin.ui.candidate.dashboard.Dashboard
+import com.example.interviewin.ui.candidate.interview.Interview
+import com.example.interviewin.ui.candidate.interview.InterviewFragment
 
 class CandidateActivity : AppCompatActivity() {
 
@@ -23,7 +26,7 @@ class CandidateActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.dashboard -> replaceFragment(Dashboard())
-                R.id.interview -> replaceFragment(Interview())
+                R.id.interview -> replaceFragment(InterviewFragment())
                 R.id.profile -> replaceFragment(Profile())
 
                 else ->{

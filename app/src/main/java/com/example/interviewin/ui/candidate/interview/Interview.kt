@@ -1,5 +1,6 @@
-package com.example.interviewin.ui.candidate
+package com.example.interviewin.ui.candidate.interview
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +8,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import com.example.interviewin.R
+import com.example.interviewin.data.api.response.JobsItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.example.interviewin.databinding.FragmentInterviewBinding
 import com.example.interviewin.databinding.SheetLayoutBinding
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.example.interviewin.ui.candidate.chat.ChatActivity
+import com.example.interviewin.ui.recruiter.ui.jobdesc.JobDescFragment
 
 class Interview : Fragment() {
-
-    private var param1: String? = null
-    private var param2: String? = null
-
     private lateinit var searchView: SearchView
     private lateinit var searchButton: Button
 
@@ -72,27 +70,38 @@ class Interview : Fragment() {
         dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(sheetBinding.root)
 
+
 //        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        binding.searchButton.visibility = View.GONE
 
         binding.searchButton.setOnClickListener {
-            dialog.show()
+//            dialog.show()
+//            showBottomSheetDialog()
         }
 
         sheetBinding.btnSheet.setOnClickListener {
             val text = sheetBinding.edtSheet.text.toString()
-            binding.textView.text = text
+//            binding.textView.text = text
             dialog.dismiss()
+        }
+
+        val id = arguments?.getString(ID)
+        binding.tvJob.text = arguments?.getString(INTERVIEW_TITLE)
+        val status = arguments?.getString(INTERVIEW_STATUS)
+        binding.tvTime.text = "Interview Status ($status)"
+        binding.tvCompany.text = arguments?.getString(INTERVIEW_COMPANY)
+
+        binding.startIN.setOnClickListener {
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra(ChatActivity.INTERVIEW_ID, id)
+            intent.putExtra(ChatActivity.INTERVIEW_STATUS, status)
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Interview().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    companion object{
+        const val ID = "id"
+        const val INTERVIEW_TITLE = "title"
+        const val INTERVIEW_STATUS = "status"
+        const val INTERVIEW_COMPANY = "company"
     }
 }

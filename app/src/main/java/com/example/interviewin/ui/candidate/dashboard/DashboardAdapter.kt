@@ -1,4 +1,4 @@
-package com.example.interviewin.ui.recruiter.ui.dashboard
+package com.example.interviewin.ui.candidate.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,20 +7,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.databinding.ItemRecruiterDashboardBinding
-import com.example.interviewin.utils.DateFormatter.formatTime
+import com.example.interviewin.utils.DateFormatter
 
-class RecruiterDashboardAdapter(
-    private val onBtnMoreClick: (JobsItem) -> Unit
-) :
-    ListAdapter<JobsItem, RecruiterDashboardAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class DashboardAdapter(
+    private val onBtnMoreClick: (JobsItem) -> Unit,
+    private val onItemClick: (JobsItem) -> Unit
+) : ListAdapter<JobsItem, DashboardAdapter.MyViewHolder>(DIFF_CALLBACK) {
+
     inner class MyViewHolder(val binding: ItemRecruiterDashboardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(job: JobsItem) {
             binding.tvJob.text = job.title
-            binding.tvDate.text = formatTime(job.createdAt)
+            binding.tvDate.text = DateFormatter.formatTime(job.createdAt)
+            binding.tvTime.text = job.company.name
 
             binding.btnDots.setOnClickListener {
                 onBtnMoreClick(job)
+            }
+
+            itemView.setOnClickListener {
+                onItemClick(job)
             }
         }
     }

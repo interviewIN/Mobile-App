@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.candidate.Dashboard">
+    tools:context=".ui.candidate.dashboard.Dashboard">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -28,6 +28,18 @@
         android:textStyle="bold"
         android:paddingLeft="16dp"/>
 
+    <TextView
+        android:id="@+id/tv_seeAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="22dp"
+        android:fontFamily="@font/urbanist"
+        android:layout_gravity="end"
+        android:text="See All"
+        android:textColor="@color/medium_grey"
+        android:textSize="16sp" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -37,6 +49,7 @@
         android:layout_marginTop="150dp"
 
         />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
@@ -46,5 +59,24 @@
         android:gravity="center"
 
         />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_candidate_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="12dp"
+        android:visibility="gone"
+        android:background="@drawable/dashboard_background" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        tools:visibility="visible"/>
 
 </FrameLayout>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.databinding.ItemRecruiterDashboardBinding
+import com.example.interviewin.utils.DateFormatter
 
 class RecruiterInterviewAdapter(
     private val onItemClick: (JobsItem) -> Unit,
@@ -17,6 +18,7 @@ class RecruiterInterviewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(job: JobsItem) {
             binding.tvJob.text = job.title
+            binding.tvDate.text = DateFormatter.formatTime(job.createdAt)
 
             binding.btnDots.setOnClickListener {
                 onBtnMoreClick(job)

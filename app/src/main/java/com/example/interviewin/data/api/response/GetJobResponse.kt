@@ -9,8 +9,14 @@ data class GetJobResponse(
 
 data class JobsItem(
 
+	@SerializedName("createdAt")
+	val createdAt: String,
+
 	@field:SerializedName("companyId")
 	val companyId: Int,
+
+	@field:SerializedName("company")
+	val company: Company,
 
 	@field:SerializedName("description")
 	val description: String,
@@ -22,5 +28,9 @@ data class JobsItem(
 	val interviewQuestions: List<String>,
 
 	@field:SerializedName("title")
-	val title: String
+	val title: String,
+
+	@field:SerializedName("applied")
+	val applied: Boolean
 )
+

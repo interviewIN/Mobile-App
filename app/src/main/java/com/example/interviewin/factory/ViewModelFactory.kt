@@ -10,10 +10,13 @@ import com.example.interviewin.ui.auth.login.LoginViewModel
 import com.example.interviewin.ui.auth.register.RegisterViewModel
 import com.example.interviewin.ui.candidate.chat.ChatViewModel
 import com.example.interviewin.ui.candidate.dashboard.DashboardViewModel
+import com.example.interviewin.ui.candidate.interview.InterviewViewModel
 import com.example.interviewin.ui.recruiter.ui.addJob.AddJobViewModel
 import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListViewModel
 import com.example.interviewin.ui.recruiter.ui.dashboard.RecruiterDashboardViewModel
 import com.example.interviewin.ui.recruiter.ui.interview.RecruiterInterviewViewModel
+import com.example.interviewin.ui.recruiter.ui.profile.RecruiterProfileViewModel
+import com.example.interviewin.ui.recruiter.ui.summary.SummaryViewModel
 
 class ViewModelFactory(private val repository: DataRepository): ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -35,6 +38,10 @@ class ViewModelFactory(private val repository: DataRepository): ViewModelProvide
                 DashboardViewModel(repository) as T
             }
 
+            modelClass.isAssignableFrom(InterviewViewModel::class.java) -> {
+                InterviewViewModel(repository) as T
+            }
+
             modelClass.isAssignableFrom(RecruiterDashboardViewModel::class.java) -> {
                 RecruiterDashboardViewModel(repository) as T
             }
@@ -53,6 +60,14 @@ class ViewModelFactory(private val repository: DataRepository): ViewModelProvide
 
             modelClass.isAssignableFrom(ChatViewModel::class.java) -> {
                 ChatViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(SummaryViewModel::class.java) -> {
+                SummaryViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(RecruiterProfileViewModel::class.java) -> {
+                RecruiterProfileViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel Class " + modelClass.name)

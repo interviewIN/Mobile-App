@@ -2,6 +2,7 @@ package com.example.interviewin.ui.candidate.chat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -33,9 +34,64 @@ class ChatActivity : AppCompatActivity() {
         val recyclerView = binding.rvChat
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        val status = intent.getStringExtra(INTERVIEW_STATUS)
+        val interviewId = intent.getIntExtra(INTERVIEW_ID, 0)
+
+        when (status) {
+            "WAITING" -> {
+                generateFirstQuestion(interviewId)
+            }
+
+            "IN_PROGRESS" -> {
+                getChat(interviewId)
+            }
+
+            "PENDING" -> {
+                binding.bottomGroup.visibility = View.GONE
+                binding.answerEditTextLayout.visibility = View.GONE
+                binding.btnSend.visibility = View.GONE
+                binding.btnMic.visibility = View.GONE
+            }
+
+            "ACCEPTED" -> {
+                binding.bottomGroup.visibility = View.GONE
+                binding.answerEditTextLayout.visibility = View.GONE
+                binding.btnSend.visibility = View.GONE
+                binding.btnMic.visibility = View.GONE
+            }
+
+            "REJECTED" -> {
+                binding.bottomGroup.visibility = View.GONE
+                binding.answerEditTextLayout.visibility = View.GONE
+                binding.btnSend.visibility = View.GONE
+                binding.btnMic.visibility = View.GONE
+            }
+        }
+
+        binding.btnSend.setOnClickListener {
+            val answerText = binding.answerEditTextLayout.text.toString().trim()
+            if (answerText.isEmpty()) {
+                showToast("Please provide an answer")
+            } else {
+                if (nextRequest?.chat?.isNotEmpty() == true) {
+                    nextRequest?.chat?.last()?.answer = answerText
+                }
+
+                if (nextRequest?.chat?.size == 5) {
+                    generateLastQuestion(nextRequest!!)
+                } else {
+                    generateQuestion(nextRequest!!)
+                }
+
+                Log.d("test after answer", nextRequest.toString())
+                binding.answerEditTextLayout.text.clear()
+            }
+        }
     }
 
-    private fun generateFirstQuestion(request: ChatResponse) {
+    private fun generateFirstQuestion(id: Int) {
+        val request = ChatResponse(interviewId = id, chat = emptyList())
         chatViewModel.generateFirstQuestion(request).observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -62,6 +118,61 @@ class ChatActivity : AppCompatActivity() {
 
     private fun generateQuestion(request: ChatResponse) {
         chatViewModel.generateQuestion(request).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is ResultState.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is ResultState.Success -> {
+                        listChat.clear()
+                        showLoading(false)
+                        if (listChat.isEmpty()) {
+                            populateListChat(result.data)
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    is ResultState.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun generateLastQuestion(request: ChatResponse) {
+        chatViewModel.generateFirstQuestion(request).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is ResultState.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is ResultState.Success -> {
+                        showLoading(false)
+                        if (listChat.isEmpty()) {
+                            addBotChat(result.data.question)
+                        }
+                        binding.bottomGroup.visibility = View.GONE
+                        binding.answerEditTextLayout.visibility = View.GONE
+                        binding.btnSend.visibility = View.GONE
+                        binding.btnMic.visibility = View.GONE
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    is ResultState.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getChat(interviewId: Int) {
+        chatViewModel.getChat(interviewId).observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is ResultState.Loading -> {
@@ -117,6 +228,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INTERVIEW_STATUS = "interview_Status"
+        const val INTERVIEW_STATUS = "interview_status"
+        const val INTERVIEW_ID = "interview_id"
     }
 }

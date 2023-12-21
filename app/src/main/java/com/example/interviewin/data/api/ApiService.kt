@@ -3,6 +3,8 @@ package com.example.interviewin.data.api
 import com.example.interviewin.data.api.response.ChatResponse
 import com.example.interviewin.data.api.response.GetInterviewByJobResponse
 import com.example.interviewin.data.api.response.GetJobResponse
+import com.example.interviewin.data.api.response.GetUserResponse
+import com.example.interviewin.data.api.response.InterviewIdResponse
 import com.example.interviewin.data.api.response.InterviewResponse
 import com.example.interviewin.data.api.response.LoginResponse
 import com.example.interviewin.data.api.response.MessageResponse
@@ -47,8 +49,9 @@ interface ApiService {
     @GET("interview")
     suspend fun getInterviews(): InterviewResponse
 
-    @GET("interview/job/jobId:")
-    suspend fun getInterviewByJob(jobId: Int): GetInterviewByJobResponse
+    @GET("interview/job/{jobId}")
+    suspend fun getInterviewByJob(@Path("jobId") jobId: Int): GetInterviewByJobResponse
+
 
     @PATCH("interview")
     suspend fun patchStatus(
@@ -69,4 +72,12 @@ interface ApiService {
     suspend fun getChat(
         @Path("id") id: Int
     ): ChatResponse
+
+    @GET("interview/{id}")
+    suspend fun getInterviewById(
+        @Path("id") id: Int
+    ): InterviewIdResponse
+
+    @GET("user")
+    suspend fun getUser(): GetUserResponse
 }

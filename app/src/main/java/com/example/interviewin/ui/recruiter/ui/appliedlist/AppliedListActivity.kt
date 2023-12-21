@@ -1,5 +1,6 @@
 package com.example.interviewin.ui.recruiter.ui.appliedlist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,8 @@ import com.example.interviewin.data.api.response.Interviews
 import com.example.interviewin.data.model.PatchStatusRequest
 import com.example.interviewin.databinding.ActivityAppliedListBinding
 import com.example.interviewin.factory.ViewModelFactory
+import com.example.interviewin.ui.recruiter.ui.summary.SummaryActivity
+import com.example.interviewin.ui.recruiter.ui.summary.SummaryActivity.Companion.INT_ID
 import com.example.interviewin.utils.ACCEPTED
 import com.example.interviewin.utils.REJECTED
 
@@ -26,6 +29,9 @@ class AppliedListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAppliedListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val title = intent.getStringExtra(TITLE_JOB)
+        binding.appliedTitle.text = title
 
         val idJob = intent.getIntExtra(ID_JOB, 1)
         displayInterviews(idJob)
@@ -57,7 +63,9 @@ class AppliedListActivity : AppCompatActivity() {
         binding.rvAppliedUser.layoutManager = LinearLayoutManager(this)
         val adapter = AppliedListAdapter(
             onItemClick = {
-                showDecisionDialog(it)
+                val intent = Intent(this, SummaryActivity::class.java)
+                intent.putExtra(INT_ID, it.id)
+                startActivity(intent)
             },
             onBtnNext = {
                 showDecisionDialog(it)
@@ -106,7 +114,6 @@ class AppliedListActivity : AppCompatActivity() {
             .show()
     }
 
-
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -117,5 +124,6 @@ class AppliedListActivity : AppCompatActivity() {
 
     companion object {
         const val ID_JOB = "id_job"
+        const val TITLE_JOB = "title_job"
     }
 }

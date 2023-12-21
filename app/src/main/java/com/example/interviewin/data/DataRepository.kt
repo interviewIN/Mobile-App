@@ -154,6 +154,30 @@ class DataRepository(
         }
     }
 
+    fun getInterviewById(id: Int) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResponse = apiService.getInterviewById(id)
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, MessageResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
+    fun getUser() = liveData {
+        emit(ResultState.Loading)
+        try {
+            val successResponse = apiService.getUser()
+            emit(ResultState.Success(successResponse))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, MessageResponse::class.java)
+            emit(ResultState.Error(errorResponse.message))
+        }
+    }
+
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
