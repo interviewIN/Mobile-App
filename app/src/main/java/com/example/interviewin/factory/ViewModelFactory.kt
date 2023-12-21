@@ -9,6 +9,7 @@ import com.example.interviewin.ui.MainViewModel
 import com.example.interviewin.ui.auth.login.LoginViewModel
 import com.example.interviewin.ui.auth.register.RegisterViewModel
 import com.example.interviewin.ui.candidate.chat.ChatViewModel
+import com.example.interviewin.ui.recruiter.ui.addJob.AddJobViewModel
 import com.example.interviewin.ui.recruiter.ui.dashboard.RecruiterDashboardViewModel
 import com.example.interviewin.ui.recruiter.ui.interview.RecruiterInterviewViewModel
 
@@ -34,6 +35,10 @@ class ViewModelFactory(private val repository: DataRepository): ViewModelProvide
 
             modelClass.isAssignableFrom(RecruiterInterviewViewModel::class.java) -> {
                 RecruiterInterviewViewModel(repository) as T
+            }
+
+            modelClass.isAssignableFrom(AddJobViewModel::class.java) -> {
+                AddJobViewModel(repository) as T
             }
 
             modelClass.isAssignableFrom(ChatViewModel::class.java) -> {
