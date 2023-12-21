@@ -1,10 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".MoveCandidate">
+    tools:context=".ui.candidate.Dashboard">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -24,15 +25,16 @@
         android:layout_marginTop="80dp"
         android:text="@string/allIN"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingLeft="16dp"/>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bot"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
 
         />
     <TextView
@@ -40,11 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nodata"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="400dp"
         android:gravity="center"
 
         />
 
-
-
-</RelativeLayout>
+</FrameLayout>

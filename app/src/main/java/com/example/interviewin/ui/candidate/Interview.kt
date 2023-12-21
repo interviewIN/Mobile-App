@@ -1,4 +1,4 @@
-package com.example.dashboardcapstone
+package com.example.interviewin.ui.candidate
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.example.dashboardcapstone.databinding.FragmentInterviewBinding
-import com.example.dashboardcapstone.databinding.SheetLayoutBinding
+import com.example.interviewin.databinding.FragmentInterviewBinding
+import com.example.interviewin.databinding.SheetLayoutBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

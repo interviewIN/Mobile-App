@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Interview">
+    tools:context=".ui.candidate.Interview">
     <!-- TODO: Update blank fragment layout -->
 
     <SearchView
@@ -40,16 +40,13 @@
         android:id="@+id/startIN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="170dp"
         android:backgroundTint="@color/blue"
         android:gravity="center"
         android:onClick="onSearchButtonClick"
         android:text="Start Interview"
         android:layout_gravity="center_horizontal"
         />
-
-
-
 
 
 </FrameLayout>

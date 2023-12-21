@@ -1,10 +1,8 @@
 package com.example.interviewin.ui.candidate
 
-import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.interviewin.R
 import com.example.interviewin.databinding.ActivityCandidateBinding
 
@@ -14,14 +12,40 @@ class CandidateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityCandidateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        replaceFragment(Dashboard())
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_candidate)
 
-        navView.setupWithNavController(navController)
+        binding.bottomNavigationView.setOnItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.dashboard -> replaceFragment(Dashboard())
+                R.id.interview -> replaceFragment(Interview())
+                R.id.profile -> replaceFragment(Profile())
+
+                else ->{
+
+                }
+
+            }
+
+            true
+
+        }
+
+
+    }
+
+    private fun replaceFragment(fragment : Fragment){
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.commit()
+
+
     }
 }

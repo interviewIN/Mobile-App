@@ -8,7 +8,6 @@ import com.example.interviewin.di.Injection
 import com.example.interviewin.ui.MainViewModel
 import com.example.interviewin.ui.auth.login.LoginViewModel
 import com.example.interviewin.ui.auth.register.RegisterViewModel
-import com.example.interviewin.ui.candidate.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val repository: DataRepository): ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
@@ -24,10 +23,6 @@ class ViewModelFactory(private val repository: DataRepository): ViewModelProvide
 
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository) as T
-            }
-
-            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel Class " + modelClass.name)
