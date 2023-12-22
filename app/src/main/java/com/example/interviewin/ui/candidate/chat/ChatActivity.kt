@@ -24,6 +24,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private var listChat = mutableListOf<ListChat>()
     private var nextRequest: ChatResponse? = null
+    private lateinit var existingData: ChatResponse
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +50,13 @@ class ChatActivity : AppCompatActivity() {
                 showToast("Please provide an answer")
             } else {
                 nextRequest?.chat?.last()?.answer = answerText
+                addUserChat(answerText)
                 generateLastQuestion(nextRequest!!)
 
-                Log.d("test after answer", nextRequest.toString())
                 binding.answerEditTextLayout.text.clear()
+                Log.d("test answer", nextRequest.toString())
             }
-
         }
-        Log.d("test answer", nextRequest.toString())
     }
 
     private fun generateFirstQuestion(id: Int) {
@@ -73,6 +74,7 @@ class ChatActivity : AppCompatActivity() {
                         adapter.notifyDataSetChanged()
                         val chatItem = ChatItem(result.data.question, "")
                         nextRequest = ChatResponse(request.interviewId, listOf(chatItem))
+                        Log.d("check", nextRequest.toString())
                     }
 
                     is ResultState.Error -> {
@@ -96,19 +98,17 @@ class ChatActivity : AppCompatActivity() {
                         showLoading(false)
                         addBotChat(result.data.question)
 
-                        val newChatItem = ChatItem(result.data.question, answer = "")
-                        nextRequest?.let {
-                            val updatedChatList = it.chat.toMutableList()
-                            updatedChatList.add(newChatItem)
-                            nextRequest = it.copy(chat = updatedChatList)
-                        }
+//                        val newChatItem = ChatItem(result.data.question, answer = "")
+//                        nextRequest?.let {
+//                            val updatedChatList = it.chat.toMutableList()
+//                            updatedChatList.add(newChatItem)
+//                            nextRequest = it.copy(chat = updatedChatList)
+//                        }
 
-                        if (result.data.status != "IN_PROGRESS") {
-                            binding.bottomGroup.visibility = View.GONE
-                            binding.answerEditTextLayout.visibility = View.GONE
-                            binding.btnSend.visibility = View.GONE
-                            binding.btnMic.visibility = View.GONE
-                        }
+                        val newChatItem = ChatItem(result.data.question, answer = "")
+                        val updatedChatList = request.chat.toMutableList()
+                        updatedChatList.add(newChatItem)
+                        nextRequest = request.copy(chat = updatedChatList)
                         adapter.notifyDataSetChanged()
                     }
 
@@ -135,9 +135,11 @@ class ChatActivity : AppCompatActivity() {
                             generateFirstQuestion(interviewId)
                         } else {
                             populateListChat(result.data)
-                            val request= ChatResponse(interviewId, result.data.chat)
-                            nextRequest = result.data
+//                            generateLastQuestion(result.data)
+                            val request = ChatResponse(interviewId, result.data.chat)
+                            nextRequest = request
                             generateLastQuestion(request)
+                            Log.d("check get cht", nextRequest.toString())
                         }
                         adapter.notifyDataSetChanged()
                     }
