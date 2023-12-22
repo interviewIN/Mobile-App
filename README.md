@@ -16,10 +16,9 @@ The interviewIN application boasts several key features, including:
 - **Chatbot Interview with AI**: Engages users in an interactive interview experience powered by AI.
   ![chatbot](https://github.com/interviewIN/Mobile-App/assets/76018957/b1043bc6-3ca4-46ad-a941-3990d5b577e9)
 - **Chatbot Interview Analysis**: Utilizes AI for analyzing chatbot interactions and providing valuable insights.
-  ![iPhone-13-Pro-Front](https://github.com/interviewIN/Mobile-App/assets/76018957/ed5b99c5-63e9-4a0a-9bfb-dff89f5df429)
+  ![result](https://github.com/interviewIN/Mobile-App/assets/76018957/c418dd63-ca8c-4851-ae7a-341957f4c92b)
 - **User Profile**: Allows users to manage and update their profile information.
-  ![result](https://github.com/interviewIN/Mobile-App/assets/76018957/9a0538e0-d7a0-4b4e-9357-b8421a31fb8e)
-
+  ![profile](https://github.com/interviewIN/Mobile-App/assets/76018957/09013e91-5ed2-42ff-ac76-cdd940054e3a)
 
 ## App Demo
 Watch the demo video on [Google Drive](Watch the demo video on [Google Drive](https://drive.google.com/file/d/your_file_id/view?usp=sharing).
