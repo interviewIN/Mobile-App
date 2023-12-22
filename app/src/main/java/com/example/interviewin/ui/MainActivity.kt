@@ -8,7 +8,6 @@ import com.example.interviewin.databinding.ActivityMainBinding
 import com.example.interviewin.factory.ViewModelFactory
 import com.example.interviewin.ui.auth.login.LoginActivity
 import com.example.interviewin.ui.auth.register.RegisterActivity
-import com.example.interviewin.ui.auth.roles.RolesActivity
 import com.example.interviewin.ui.candidate.CandidateActivity
 import com.example.interviewin.ui.recruiter.RecruiterActivity
 import com.example.interviewin.utils.CANDIDATE

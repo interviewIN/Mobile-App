@@ -1,15 +1,10 @@
 package com.example.interviewin.ui.recruiter.ui.jobdesc
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.interviewin.R
 import com.example.interviewin.databinding.FragmentJobDescBinding
-import com.example.interviewin.factory.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class JobDescFragment : BottomSheetDialogFragment() {

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.interviewin.data.ResultState
 import com.example.interviewin.data.api.response.ChatItem
 import com.example.interviewin.data.api.response.ChatResponse
-import com.example.interviewin.data.api.response.NoAnswerResponse
 import com.example.interviewin.databinding.ActivityChatBinding
 import com.example.interviewin.factory.ViewModelFactory
 
@@ -24,7 +23,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private var listChat = mutableListOf<ListChat>()
     private var nextRequest: ChatResponse? = null
-    private lateinit var existingData: ChatResponse
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,13 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import com.example.interviewin.R
-import com.example.interviewin.data.api.response.JobsItem
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.example.interviewin.databinding.FragmentInterviewBinding
 import com.example.interviewin.databinding.SheetLayoutBinding
 import com.example.interviewin.ui.candidate.chat.ChatActivity
-import com.example.interviewin.ui.recruiter.ui.jobdesc.JobDescFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class Interview : Fragment() {
     private lateinit var searchView: SearchView

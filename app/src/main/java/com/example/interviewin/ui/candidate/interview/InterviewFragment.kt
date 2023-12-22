@@ -10,18 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.interviewin.R
 import com.example.interviewin.data.ResultState
 import com.example.interviewin.data.api.response.InterviewsItem
-import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.databinding.FragmentInterview2Binding
 import com.example.interviewin.factory.ViewModelFactory
 import com.example.interviewin.ui.candidate.chat.ChatActivity
-import com.example.interviewin.ui.candidate.interview.Interview.Companion.ID
-import com.example.interviewin.ui.candidate.interview.Interview.Companion.INTERVIEW_COMPANY
-import com.example.interviewin.ui.candidate.interview.Interview.Companion.INTERVIEW_STATUS
-import com.example.interviewin.ui.candidate.interview.Interview.Companion.INTERVIEW_TITLE
-import com.example.interviewin.ui.recruiter.ui.dashboard.RecruiterDashboardAdapter
 
 class InterviewFragment : Fragment() {
 

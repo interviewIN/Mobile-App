@@ -11,9 +11,4 @@ class DashboardViewModel(private val repository: DataRepository): ViewModel() {
     fun getJobs() = repository.getJob()
 
     fun applyJob(request: ApplyJobRequest) = repository.applyJob(request)
-
-
-    fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
-    }
 }

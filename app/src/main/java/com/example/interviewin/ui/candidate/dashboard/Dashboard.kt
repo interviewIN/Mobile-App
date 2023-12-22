@@ -1,6 +1,5 @@
 package com.example.interviewin.ui.candidate.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,19 +10,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.interviewin.R
 import com.example.interviewin.data.ResultState
-import com.example.interviewin.data.api.response.Interviews
 import com.example.interviewin.data.api.response.JobsItem
 import com.example.interviewin.data.model.ApplyJobRequest
-import com.example.interviewin.data.model.PatchStatusRequest
 import com.example.interviewin.databinding.FragmentDashboardBinding
 import com.example.interviewin.factory.ViewModelFactory
-import com.example.interviewin.ui.recruiter.ui.appliedlist.AppliedListActivity
-import com.example.interviewin.ui.recruiter.ui.interview.RecruiterInterviewAdapter
 import com.example.interviewin.ui.recruiter.ui.jobdesc.JobDescFragment
-import com.example.interviewin.utils.ACCEPTED
-import com.example.interviewin.utils.REJECTED
 
 
 class Dashboard : Fragment() {

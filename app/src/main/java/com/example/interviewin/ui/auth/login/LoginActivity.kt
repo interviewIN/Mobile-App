@@ -12,7 +12,6 @@ import com.example.interviewin.databinding.ActivityLoginBinding
 import com.example.interviewin.factory.ViewModelFactory
 import com.example.interviewin.ui.MainActivity
 import com.example.interviewin.ui.auth.register.RegisterActivity
-import com.example.interviewin.ui.auth.roles.RolesActivity
 import com.example.interviewin.ui.candidate.CandidateActivity
 import com.example.interviewin.ui.recruiter.RecruiterActivity
 import com.example.interviewin.utils.CANDIDATE
